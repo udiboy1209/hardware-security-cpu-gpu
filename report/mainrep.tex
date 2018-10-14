@@ -1,0 +1,244 @@
+%%% Time-stamp: <mainrep.tex 19:57, 17 Jul 2016 by P Sunthar>
+%%% $Log:$
+% This document describes how to use iitbreport style
+%********************************************************************
+
+%\documentclass[11pt,a4paper,openright]{report}
+\documentclass[twoside]{iitbreport}
+
+%% Default spacing: 1.5
+%% Default font size: 12pt
+%% Default font: txfonts (similar to times new roman)
+
+%% Selectively comment out sections that you want to be left out but
+%% maintaining the page numbers and other \ref
+\includeonly{%
+intro/introduction,
+sc/sidechannel,
+%lit/literature,
+expt/experimental,
+rnd/results,
+%dec,
+abs
+%pub
+%ack
+}
+
+%%% Some commonly used packages (make sure your LaTeX installation
+%%% contains these packages, if not ask your senior to help installing
+%%% the packages)
+
+\usepackage{booktabs}
+\usepackage{listings}
+
+\graphicspath{{expt/}}
+\graphicspath{{sc/}}
+
+
+%%% Macro definitions for Commonly used symbols
+\newcommand{\Rey}{\ensuremath{\mathrm{Re}}}
+\newcommand{\avg}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\tenpow}[1]{\ensuremath{\times 10^{#1}}}
+\newcommand{\pder}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+
+% Referencing macros
+\newcommand{\Eqref}[1]{Equation~\eqref{#1}}
+\newcommand{\Tabref}[1]{Table~\ref{#1}}
+\newcommand{\Figref}[1]{Fig.~\ref{#1}}
+\newcommand{\Lstref}[1]{Listing~\ref{#1}}
+\newcommand{\Appref}[1]{Appendix~\ref{#1}}
+\newcommand{\Citeref}[1]{\cite{#1}}
+
+\setlength{\parindent}{7pt}
+
+\begin{document}
+
+%%********************************Frontmatter***********************
+% In frontmatter everything comes with roman numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+%*******************************************************************
+%                         Title Page
+%*******************************************************************
+\title{Survey of Hardware Security in Modern CPUs and GPGPUs}
+\author{Meet Udeshi}
+
+%% Print the date. Today's date comes by default, change it here to
+%% other date format, if required:
+
+%\date{\today}
+%\date{10 Mar 2016}
+
+
+%% The type of the report can be set here
+
+\reporttype{Phase 1 Report}
+%\reporttype{A Thesis}
+%\reporttype{A Dissertation}
+%\reporttype{A Project Report}
+
+%% Name of the degree
+\degree{Dual Degree Project}
+%\degree{Master of Technology}
+
+
+%% Department/Centre Name
+\dept{Department of Electrical Engineering}
+
+%% Supervisor and cosupervisor/excosupervisor are not essential parts
+%% of a report title page, as it is your report!
+
+%% But if you **have** to put it uncomment these
+\supervisor{Prof. Virendra Singh}
+%\cosupervisor{Co-super name}
+%\excosupervisor{External Supervisor}
+
+%% Roll number
+\rollnum{Roll No. 14D070007}
+
+\maketitle
+
+%*******************************************************************
+%                         Copyright Page
+%*******************************************************************
+%\mycopyright
+
+%*******************************************************************
+%                         Dedication Page
+%*******************************************************************
+%\dedication[Dedicated to \ldots]
+%\addintoc{Dedication}
+
+%*******************************************************************
+%                        Certificate Page
+%*******************************************************************
+%\makecertificate[change title name]{report type}
+%\makecertificate{seminar report}
+%\makecertificate{thesis}
+%\makecertificate{dissertation}
+%\makecertificate{project report}
+
+%\addintoc{Certificate}
+
+%*******************************************************************
+%                         Approval Sheet
+%*******************************************************************
+%\makeapproval{thesis}
+%\makeapproval{dissertation}
+
+%*******************************************************************
+%                          Declaration
+%*******************************************************************
+%\include{dec}
+%\addintoc{Declaration}
+
+%******************************************************************
+%                          Abstract
+%******************************************************************
+%\include{abs}
+
+%******************************************************************
+%                         Contents list
+%******************************************************************
+\figurespagefalse
+\tablespagefalse
+\makecontents % Creats toc, lof, and lot
+
+%******************************************************************
+%                        Notations
+%******************************************************************
+\notations[4cm]{List of Symbols}
+
+%%********************************Mainmatter***********************
+% In mainmatter everything comes with arabic numbering
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+%******************************************************************
+%                         Chapters
+%******************************************************************
+\include{intro/introduction}
+\include{sc/sidechannel}
+%\include{lit/literature}
+%\include{expt/experimental}
+%\include{rnd/results}
+
+\chapter{Conclusion}
+
+As we saw above, the recent advances in computer architecture for performance and power gains
+leads to introduction of a series of leakages from the processor which is a security concern.
+It is required to design hardware by keeping security in mind as the processors get more and more
+complex in order to extract higher performance gains. The industry runs a lot of security 
+critical applications which if broken can cause many problems. It is important for us to
+keep in mind the existance of such side channels to ensure minimal leakage of sensitive data.
+
+%****************************************************************
+%                         Appendices
+%****************************************************************
+%% Additional, supporting material, such as codes, derivations, etc., can be placed in the appendix
+%\appendix
+%\chapter{Supporting Material}
+
+%******************************************************************
+%                         Bibliography or References
+%******************************************************************
+%\bibliography{mylit}
+\begin{thebibliography}{99}
+\bibitem{side-channel}
+Chenglu Jin, {\it Side Channel Attacks},
+\bibitem{cache-side-channel}
+D. Page, {\it Theoretical Use of Cache Memory as a Cryptanalytic Side-Channel}
+
+\bibitem{cross_vm}
+Gorka Irazoqui, Mehmet Sinan Inci, Thomas Eisenbarth, Berk Sunar,  {\it Wait a minute! A fast, Cross-VM attack on AES}
+\bibitem{covert_gpgpu} 
+Hoda Naghibijouybari,
+Khaled N. Khasawneh,
+Nael Abu-Ghazaleh, 
+{\it Constructing and Characterizing Covert Channels on GPGPUs}
+\bibitem{gpu_reverse}
+Henry Wong, Misel-Myrto Papadopoulou, Maryam Sadooghi-Alvandi, and Andreas Moshovos, {\it Demystifying GPU Microarchitecture through Microbenchmarking}
+
+\bibitem{part_cache}
+D. Page, {\it Partitioned Cache Architecture as a Side-Channel Defence Mechanism}
+
+\bibitem{pl_rp_cache}
+Zhenghong Wang and Ruby B. Lee, {\it New Cache Designs for Thwarting Software Cache-based Side Channel Attacks}
+
+\bibitem{newcache}
+Zhenghong Wang and Ruby B. Lee, {\it A Novel Cache Architecture with Enhanced Performance and Security}
+
+\bibitem{disruptive}
+Adi Fuchs, Ruby B. Lee, {\it Disruptive Prefetching: Impact on Side-Channel Attacks and Cache Designs}
+
+\bibitem{csd}
+Mohammadkazem Taram, Ashish Venkat, Dean Tullsen, {\it Mobilizing the Micro-Ops: Exploiting Context Sensitive Decoding for Security and Energy Efficiency}
+
+\bibitem{meltdown}
+Moritz Lipp, Michael Schwarz, Daniel Gruss, Thomas Prescher, Werner Haas,
+Stefan Mangard, Paul Kocher, Daniel Genkin, Yuval Yarom, Mike Hamburg, {\it Meltdown}
+
+\bibitem{spectre}
+Paul Kocher, Jann Horn, Anders Fogh, Daniel Genkin, Daniel Gruss, Werner Haas, Mike Hamburg, Moritz Lipp, Stefan Mangard, Thomas Prescher, Michael Schwarz, Yuval Yarom, {\it Spectre Attacks: Exploiting Speculative Execution}
+
+\end{thebibliography}
+
+%******************************************************************
+%                         List of publications
+%******************************************************************
+%\include{pub}
+
+%******************************************************************
+%                        Acknowledgements
+%******************************************************************
+%\include{ack}
+
+%******************************************************************
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
