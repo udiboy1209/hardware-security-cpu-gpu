@@ -127,7 +127,7 @@ Flush+Reload is able to achieve greater granularity and accuracy due to it scann
 \end{figure}
 
 Flush+Reload is also effective on LLCs because inclusivity will not affect \texttt{clflush} behaviour, hence
-attacker will get an LLC hit when the victim process accessed data. This opens up possibility of mounting a Cross-VM 
+attacker will get an LLC hit when the victim process accessed data. This opens up possibility of mounting a Cross-VM
 attack \Citeref{cross_vm} like shown in \Figref{fig:crossvm}
 
 \section{Cache side channels on GPGPU}
@@ -298,7 +298,7 @@ But it has certain drawbacks in terms of implementation.
 
 Random-permutation cache is another cache design proposed by Wang et al in \Citeref{pl_rp_cache}.
 They have added a redirection step in the address decoder of caches which uses a random permutation
-table as seen in \Figref{fig:rpcache}. 
+table as seen in \Figref{fig:rpcache}.
 The permutation table essentially randomises the cache line in which an address will be stored.
 The size of permutation table is larger than cache size (in terms of number of lines) such that there is
 lesser aliasing in the permutation table. Moreover, the replacement policy is modified to update the permutation
@@ -339,7 +339,7 @@ Stride pre-fetcher and GHB pre-fetcher are based on finding patterns in the prev
 and guessing that the next locations in that pattern will be accessed. Fuchs et al in \Citeref{disruptive}
 introduce additional steps to the pre-fetchers to increase the randomness in the loaded memory address.
 They randomise the pattern sequence and stride value to intentionally pollute the cache with unnecessary data.
-This will degrade the performance of non-malicious programs by a bit, but will terribly disrupt any 
+This will degrade the performance of non-malicious programs by a bit, but will terribly disrupt any
 side channel established by an attacker. For example, in Prime+Probe attack, the attacker will not know
 whether the victim or the pre-fetcher evicted its block from the cache, hence it will wrongly trace the memory
 access of the victim. In the same way, Flush+Reload would get false cache hits which were not caused by the victim.
