@@ -1,0 +1,45 @@
+%============================= abs.tex================================
+\begin{Abstract}
+
+    The current trends in computer architecture are increasingly 
+    focusing on sharing computing resources among multiple programs
+    and processes.
+    Virtualisation technology and Virtual machines allow different 
+    programs to share the same hardware resources.
+These shared resources include all the structures inside cores and multi-core processors
+which can be accessed simultaneously by threads colocated on a single core, or even processes
+on two different cores. This poses a threat to the data security of many critical
+processes which run in such a shared context.
+
+Attackers with the right knowledge and tools
+can leverage hardware implementation flaws in the design of these shared resources
+to extract data from a victim process via undetectable side-channels. Malicious trojans
+can use these shared resources to construct covert-channels to establish inter-process
+communication undetectable by the core or OS. With the rapid increase of need of
+powerful computation resources, GPUs have been extended to support general purpose computing.
+More recently, multiple processes are able to share the GPGPU resource
+and this opens up a new domain of security attacks which can be mounted on GPGPUs.
+
+With the recent Meltdown \Citeref{meltdown} and Spectre \Citeref{spectre} attacks capable of compromising any Intel core 
+regardless of the OS, it is obvious that along with power and performance, design of
+computer architecture needs to consider data security as an important metric.
+Moreover, a lot of software based attacks like buffer overflow and return-oriented
+programming can be thwarted effectively using additional hardware structures.
+Hardware support for security against software exploits is an efficient mitigation
+and should also be considered when designing processors.\\
+\\
+
+In this report, an outline of recent security attack methods and mitigations
+on both CPU and GPGPU is presented. The attacks range from side-channels and covert-channels over
+various CPU resources to different types of return-oriented programming exploits.
+Hardware-based mitigations and their effectiveness over software implementations is shown.
+The literature survey is followed with an implementation of cache reverse-engineering procedure
+and results.
+%
+%
+%
+%
+%
+\end{Abstract}
+%=======================================================================
+
