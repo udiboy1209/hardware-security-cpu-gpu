@@ -1,0 +1,84 @@
+\chapter{Introduction}
+
+In recent years, it has become difficult to keep up with Moore's law using
+conventional transistor scaling. Computer architecture has shifted
+focus from optimizing single-thread performance to increasing throughput by
+running multiple threads and multiple programs simultaneously.
+The current trends are increasingly focusing on sharing
+computing resources among multiple programs and processes.
+Multi-thread and multi-core processors are commonplace in
+personal computers and mobile phones, even embedded devices.
+In cloud computing, technologies like virtual machines and virtual environments
+are allowing multiple different programs to share the same computing resources.
+These shared resources include all the structures inside cores and multi-core
+processors which can be accessed simultaneously by threads colocated on a single
+core, or even processes on two different cores.
+This poses a threat to the data security of many critical
+processes which run in such a shared context.
+
+Attackers with the right knowledge and tools can leverage hardware
+implementation flaws in the design of these shared resources
+to extract data from a victim process via undetectable side-channels.
+Malicious trojans can use these shared resources to construct
+covert-channels to establish inter-process communication undetectable
+by the core or OS. With the rapid increase of need of powerful computation
+resources, GPUs have been extended to support general purpose computing.
+More recently, multiple processes are able to share the GPGPU resource
+and this opens up a new domain of security attacks which can be mounted on GPGPUs.
+
+With the recent Meltdown \Citeref{meltdown} and Spectre \Citeref{spectre}
+attacks capable of compromising any Intel core regardless of the OS,
+it is obvious that along with power and performance, design of
+computer architecture needs to consider data security as an important metric.
+Moreover, a lot of software based attacks like buffer overflow and return-oriented
+programming can be thwarted effectively using additional hardware structures.
+Hardware support for security against software exploits is an efficient mitigation
+and should also be considered when designing processors.
+
+A lot of side-channel attacks are based on caches due to their common
+accessibility between different programs. Cache accesses are abstracted away
+from the program hence OS-level access-restrictions do not apply on them.
+Caches also have a well-defined memory to cache-line mapping which is used
+by the attacker to infer memory addresses. The time-difference between
+a cache-hit versus a cache-miss is also noticeable enough to be detected
+by an executing program. These characteristics make the cache vulnerable to
+side-channel leakages \Citeref{disruptive}.
+Cache designs which try to avoid any one of these characteristics lead to severe
+performance degradation. For example, if the memory to cache-line mapping is to be
+avoided, a fully-associative cache may be used instead of a direct-mapped
+or set-associative cache. But a fully-associative design limits the cache-size
+to a value much smaller than that desired by modern programs. In fact, the decision
+of moving from fully-associative caches to set-associative caches was done
+to make larger cache-sizes feasible on modern hardware, and that decision cannot
+be undone only for security measures without major impact on performance.
+
+Cache designs like Newcache \Citeref{newcache} try to achieve the same level
+of performance while also preventing side-channel leakage.
+There are other security methods which add enough noise
+to the cache to disrupt any side-channel.
+The Disruptive Prefetching \Citeref{disruptive} method utilises
+the function of prefetcher to generate random memory accesses to confuse an attacker
+while not interfering with program execution and performance.
+Another method introduces a new context-sensitive decoder \Citeref{csd}
+to mask legitimate memory access instructions with extra random accesses during
+instruction decode.
+
+% TODO add prefetch attack
+Side channels work best when only the targeted region of code of the victim
+is making memory accesses. While it is possible to prevent other programs and
+victim's irrelevant code from interfering, hardware which generates memory
+accesses like the prefetcher are difficult to stop. The thesis presents an
+attack on the prefetcher which tries to completely disable it from
+generating any memory accesses. This will help enhance the side channel
+to facilitate better and faster key extraction.
+
+% TODO add rob attack
+% TODO add ROP attacks
+
+% In this report, an outline of recent security attack methods and mitigations
+% on both CPU and GPGPU is presented.
+% The attacks range from side-channels and covert-channels over
+% various CPU resources to different types of return-oriented programming exploits.
+% Hardware-based mitigations and their effectiveness over software
+% implementations is shown. The literature survey is followed with an
+% implementation of cache reverse-engineering procedure and results.

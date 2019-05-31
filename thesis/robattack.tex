@@ -1,0 +1,16 @@
+\chapter{Side-channel using Reorder Buffer}
+
+% TODO write properly
+Reorder buffer is used by Out-of-Order cores for in-order retirement.
+In SMT cores, fairness policy ensures that roughly equal instructions are retired for all threads to maintain equal IPC.
+Simple implementation is to share retire pipeline width equally among threads.
+But when one thread is stalled, other thread will use full pipeline width to retire.
+IPC of other threads will see a slight increase.
+Data-dependent branch misses and cache misses can be infered from IPC information.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/rob_side_channel}
+    \caption{Reorder buffer for SMT. When T1 is stalled T2 retires twice as
+    many instructions.}
+\end{figure}

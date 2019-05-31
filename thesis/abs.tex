@@ -1,40 +1,38 @@
 %============================= abs.tex================================
 \begin{Abstract}
 
-    The current trends in computer architecture are increasingly 
-    focusing on sharing computing resources among multiple programs
-    and processes.
-    Virtualisation technology and Virtual machines allow different 
-    programs to share the same hardware resources.
-These shared resources include all the structures inside cores and multi-core processors
-which can be accessed simultaneously by threads colocated on a single core, or even processes
-on two different cores. This poses a threat to the data security of many critical
-processes which run in such a shared context.
+    The current trends in computer architecture are increasingly focusing on
+    sharing computing resources among multiple programs and users.
+    Multiple programs can share a single core using simultaneous multi-threading
+    which is widely supported by most processors and OSes.
+    Virtual machine technology allows running multiple OS instances on the same
+    processor. While the software and hardware of VMs or multi-threading OS
+    is able to isolate illegal access of data to prevent exploits, 
+    it cannot prevent the leakage of sensitive data via side-channels
+    which exist due to design flaws in shared hardware like caches, branch predictors,
+    prefetchers.
+    Attackers have successfully been able to extract encryption keys of
+    various cryptographically secure algorithms like AES and RSA.
+    These leakages are possible and viable because hardware design
+    does not take care of the security against such side-channels.
+    Moreover, software trojans can use these leakages to create a
+    covert channel of communication unknown and undetectable by the OS
+    and any software anti-viruses.
+    Also, software exploits like return oriented programming
+    and buffer overflow attacks can be thwarted more effectively
+    with hardware solutions rather than software defenses.
+    It has become increasingly necessary to consider data security as
+    an important metric for hardware design.
 
-Attackers with the right knowledge and tools
-can leverage hardware implementation flaws in the design of these shared resources
-to extract data from a victim process via undetectable side-channels. Malicious trojans
-can use these shared resources to construct covert-channels to establish inter-process
-communication undetectable by the core or OS. With the rapid increase of need of
-powerful computation resources, GPUs have been extended to support general purpose computing.
-More recently, multiple processes are able to share the GPGPU resource
-and this opens up a new domain of security attacks which can be mounted on GPGPUs.
-
-With the recent Meltdown \Citeref{meltdown} and Spectre \Citeref{spectre} attacks capable of compromising any Intel core 
-regardless of the OS, it is obvious that along with power and performance, design of
-computer architecture needs to consider data security as an important metric.
-Moreover, a lot of software based attacks like buffer overflow and return-oriented
-programming can be thwarted effectively using additional hardware structures.
-Hardware support for security against software exploits is an efficient mitigation
-and should also be considered when designing processors.\\
-\\
-
-In this report, an outline of recent security attack methods and mitigations
-on both CPU and GPGPU is presented. The attacks range from side-channels and covert-channels over
-various CPU resources to different types of return-oriented programming exploits.
-Hardware-based mitigations and their effectiveness over software implementations is shown.
-The literature survey is followed with an implementation of cache reverse-engineering procedure
-and results.
+    This thesis first gives a summary of the various side-channel
+    attacks using shared hardware which are present in literature.
+    The summary gives a motivation for including hardware security as
+    an important aspect of hardware design.
+    An implementation of a reverse-engineering attack is described
+    to extract parameters of the caches present in X86 cores.
+    A denial-of-service attack on the prefetcher is described, followed
+    by its implementation and test results. A hypothetical side-channel
+    using the shared reorder buffer on SMT cores is presented.
 %
 %
 %
