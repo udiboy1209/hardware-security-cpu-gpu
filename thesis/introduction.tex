@@ -63,7 +63,6 @@ Another method introduces a new context-sensitive decoder \Citeref{csd}
 to mask legitimate memory access instructions with extra random accesses during
 instruction decode.
 
-% TODO add prefetch attack
 Side channels work best when only the targeted region of code of the victim
 is making memory accesses. While it is possible to prevent other programs and
 victim's irrelevant code from interfering, hardware which generates memory
@@ -72,7 +71,10 @@ attack on the prefetcher which tries to completely disable it from
 generating any memory accesses. This will help enhance the side channel
 to facilitate better and faster key extraction.
 
-% TODO add rob attack
+A new potential side-channel which exploits shared Reorder Buffer (ROB) in
+SMT cores is presented. ROB is one shared resource which hasn't been analysed
+before for potential side-channel leakages. A scenario is shown where stalls in
+one thread can affect IPC of another thread sharing the same core.
 % TODO add ROP attacks
 
 % In this report, an outline of recent security attack methods and mitigations
