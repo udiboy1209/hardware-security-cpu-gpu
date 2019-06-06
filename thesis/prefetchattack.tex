@@ -201,19 +201,29 @@ As seen in the \Figref{fig:targeted_attack}, a targeted attacker
 reduces the number of prefetches issued to zero in most of the phases.
 \Figref{fig:targeted_hitrate} shows that this is because more
 prefetcher accesses are leading to PC lookup miss than without attacker.
+\Figref{fig:targeted_avgconf} also justifies the reduction in prefetches
+by full attacker and targeted attacker.
+The lower average confidence indicates how well the attack is working.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/pf_issued}
-    \caption{Number of prefetches issued on different benchmarks}
+    \caption{Comparision of number of prefetches issued by AES program}
     \label{fig:targeted_attack}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/pf_hits}
-    \caption{Percentage reduction in number of prefetches}
+    \caption{Comparision of prefetch table hit and miss count by AES program}
     \label{fig:targeted_hitrate}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/avg_conf}
+    \caption{Comparision of average confidence of prefetcher with AES program}
+    \label{fig:targeted_avgconf}
 \end{figure}
 
 % I love you meet udeshi. Will you be mine forever and ever and ever? : Yours himani0
