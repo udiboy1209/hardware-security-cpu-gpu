@@ -81,7 +81,7 @@ placed at different PC addresses and how they will be able to fill
 all entries of the prefetcher. This is called the "full" attacker because
 it tries to fill up the whole prefetcher table.
 
-\begin{lstlisting}[caption={Assembly showing load misses ar different PCs},
+\begin{lstlisting}[caption={Assembly showing load misses at different PCs},
 label={lst:full_attack}]
 00000000000006ca <attack>:
  6ce:   8b 58 36        mov    0x36(%rax),%ebx
@@ -224,6 +224,37 @@ The lower average confidence indicates how well the attack is working.
     \includegraphics[width=\textwidth]{figures/avg_conf}
     \caption{Comparision of average confidence of prefetcher with AES program}
     \label{fig:targeted_avgconf}
+\end{figure}
+
+\subsection{Attack on GHB prefetcher}
+
+Prefetchers can be more efficient if they record more history than
+a simple stride. For this purpose, a Global History Buffer is used which
+records the data addresses of all load misses in the cache.
+An index table stores the PC of load address and a pointer to the GHB
+entry containing the last miss address. This pointer is followed in a link-list
+fashion through the GHB to get all the previous miss addresses stored
+in the buffer.
+
+The previously described attack is tried on a Delta Correlating Prediction Table
+(DCPT) \Citeref{dcpt} based prefetcher implemented in \texttt{gem5} \Citeref{gem5-dcpt}.
+The same simulation setup is used including same AES program and attacker, only
+the prefetcher is changed from Stride to DCPT.
+The DCPT prefetcher stores deltas in separate buffers for every table entry instead
+of a common GHB. Table entries are indexed based on PC of the load instruction.
+
+\Figref{fig:targeted_dcpt} indicates that the previous attacker works equally well on
+a GHB based prefetcher. It is able to reduce the number of issued prefetches from \~1000
+to \~10. The full attacker works slightly better than the targeted attacker because
+it fills up all the buffers with unwanted loads. The targeted attacker is tailored to
+the Stride prefetcher and hence may be miss out other loads which the DCPT prefetcher
+is able to capture.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/dcpt-hwpf}
+    \caption{Number of prefetches issued by GHB prefetcher}
+    \label{fig:targeted_dcpt}
 \end{figure}
 
 % I love you meet udeshi. Will you be mine forever and ever and ever? : Yours himani0
