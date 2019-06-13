@@ -84,7 +84,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[DDP Phase 1]{Survey of Hardware Security in CPU and GPGPU} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[DDP Presentation]{Exploring data security on microprocessor hardware} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Meet Udeshi\\
 14D070007\\
@@ -101,10 +101,6 @@ CADSL - IIT Bombay\\ % Your institution for the title page
 \titlepage % Print the title page as the first slide
 \end{frame}
 
-\begin{frame}
-\frametitle{Contents} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
-\end{frame}
 
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
@@ -119,14 +115,23 @@ CADSL - IIT Bombay\\ % Your institution for the title page
 \begin{frame}
 \frametitle{Introduction}
 \begin{itemize}
-    \item Multi-thread, multi-core hardware focus on sharing computing resources among different programs.
-    \item In cloud, VM and sandbox technology is used as software level security measure. But they share the same hardware.
-    \item Programs running on current hardware inevitably leave fingerprints of their execution in power traces, EMI spectrum,
+    \item Multi-thread, multi-core hardware focus on sharing computing resources
+        among different programs.
+    \item In cloud computing, technologies like virtual machines and virtual environments
+        are allowing multiple different programs to share the same computing resources.
+    \item Programs running on current hardware inevitably leave fingerprints of
+        their execution in power traces, EMI spectrum,
         caches, etc.\footnote{\cite{side_channel_intro}}
-    \item Attackers with knowledge of hardware can obtain these fingerprints and extract sensitive information.
+    \item Attackers with the right knowledge and tools can leverage hardware
+        implementation flaws in the design of these shared resources
+        to extract data from a victim process via undetectable side-channels.
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Contents} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
 %------------------------------------------------
 \section{Side channels}
 
@@ -134,12 +139,12 @@ CADSL - IIT Bombay\\ % Your institution for the title page
 \frametitle{Side Channels}
 
 Shared resources of the processor can leak information about the tasks being performed in it.
-Measuring cache hit/miss, time of execution, power consumption, EMI spikes can determine what part of
-code is running or what data is being processed
+Measuring cache hit/miss, time of execution, power consumption, EMI spikes can
+determine what part of code is running or what data is being processed.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{side_channel.png}
+    \includegraphics[width=0.7\textwidth]{figures/side_channel.png}
     \caption[Data leakage sources]{A number of side channels which are capable of leaking data.}
     \label{fig:dls}
 \end{figure}
@@ -199,7 +204,7 @@ y[0] = S[y[0]]^S[y[1]]^
 \begin{frame}
 \frametitle{Prime+Probe}
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{prime_probe}
+\includegraphics[width=0.9\textwidth]{figures/prime_probe}
 \caption{Working of Flush+Reload attack}
 \end{figure}
 \end{frame}
@@ -207,7 +212,7 @@ y[0] = S[y[0]]^S[y[1]]^
 \begin{frame}
 \frametitle{Flush+Reload}
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{flush_reload}
+\includegraphics[width=0.9\textwidth]{figures/flush_reload}
 \caption{Working of Flush+Reload attack}
 \end{figure}
 \end{frame}
@@ -218,7 +223,7 @@ y[0] = S[y[0]]^S[y[1]]^
 \begin{columns}[c]
 \column{0.6\textwidth}
 \begin{figure}
-\includegraphics[width=\textwidth]{flush_reload_crossvm}
+\includegraphics[width=\textwidth]{figures/flush_reload_crossvm}
 \caption{Cross-VM Flush+Reload Attack via LLC}
 \end{figure}
 
@@ -239,7 +244,7 @@ look at side channels which can be exploited.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{gpgpu}
+    \includegraphics[width=0.8\textwidth]{figures/gpgpu}
     \caption{Memory layout of GPGPUs}
 \end{figure}
 \end{frame}
@@ -253,7 +258,7 @@ look at side channels which can be exploited.
     each SM.
 \begin{figure}
     \centering
-    \includegraphics[width=0.95\textwidth]{covert_channel}
+    \includegraphics[width=0.95\textwidth]{figures/covert_channel}
     \caption{Covert channel implementation on GPGPU}
 \end{figure}
 \end{frame}
@@ -298,7 +303,7 @@ long time = __rdtsc() - start;
 \frametitle{Result Plots}
 Setup: GEM5 x86 atomic CPU. L1 data cache 1KB, 2-way, 64B line size.
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{reverse_eng_1kb}
+\includegraphics[width=0.9\textwidth]{figures/reverse_eng_1kb}
 \caption{Latency vs Array Size plot}
 \end{figure}
 \end{frame}
@@ -307,7 +312,7 @@ Setup: GEM5 x86 atomic CPU. L1 data cache 1KB, 2-way, 64B line size.
 \frametitle{Result Plots}
 Setup: GEM5 x86 atomic CPU. L1 data cache 16KB, 4-way, 64B line size.
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{reverse_eng_16kb}
+\includegraphics[width=0.9\textwidth]{figures/reverse_eng_16kb}
 \caption{Latency vs Array Size plot}
 \end{figure}
 \end{frame}
@@ -316,7 +321,7 @@ Setup: GEM5 x86 atomic CPU. L1 data cache 16KB, 4-way, 64B line size.
 \frametitle{Result Plots}
 Setup: Intel Skylake x86\_64 i5-6500. L1 data cache 32KB, 8-way, 64B line size.
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{reverse_eng_32kb}
+\includegraphics[width=0.9\textwidth]{figures/reverse_eng_32kb}
 \caption{Latency vs Array Size plot}
 \end{figure}
 \end{frame}
@@ -342,7 +347,7 @@ Naive cache partitioning would equally split cache for all threads.
     Wang et al have proposed a dynamically partitioned cache in \footnote{\cite{wang}}.
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{pl-cache}
+\includegraphics[width=\textwidth]{figures/pl-cache}
 \caption{Partition-Locked cache - single cache line}
 \end{figure}
 PLCache requires addition of special locked-load/store instructions to the ISA.
@@ -358,12 +363,27 @@ Random-permutation cache is another cache design proposed by Wang et al. They
 have added a redirection step in the address decoder of caches which uses a random permutation table.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\textwidth]{rp-cache}
+\includegraphics[width=0.7\textwidth]{figures/rp-cache}
 \caption{Random-permutation cache}
 \end{figure}
 RPcache is able to mark data using "Lock" bits by copying page protection bit.
 Drawback of RPCache is the added step in address decoding.
 1 or 2 cycle latency increase will drastically change performance of L1.
+\end{frame}
+
+\subsection{Context Sensitive Decoding}
+\begin{frame}
+\frametitle{Context Sensitive Decoding}
+A lot of modern processors use decoders to convert from ISA to an internal instruction
+    representation. Taram et al explore in \footnote{\cite{csd}} if a custom decoder can insert decoy
+instructions to improve security.
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{figures/csd}
+\caption{Custom decoder for Context Sensitive Decoding}
+\end{figure}
+Decoy instructions pollute the cache by running decoy loads and
+disrupt attackers attempting side channel attacks on the cache.
 \end{frame}
 
 \subsection{Disruptive prefetching}
@@ -379,19 +399,189 @@ in the loaded memory address.
 \end{itemize}
 \end{frame}
 
-\subsection{Context Sensitive Decoding}
+\section{Attack on Prefetcher}
+
 \begin{frame}
-\frametitle{Context Sensitive Decoding}
-A lot of modern processors use decoders to convert from ISA to an internal instruction
-    representation. Taram et al explore in \footnote{\cite{csd}} if a custom decoder can insert decoy
-instructions to improve security.
-\begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth]{csd}
-\caption{Custom decoder for Context Sensitive Decoding}
+\frametitle{Disabling Prefetcher to avoid Cache Pollution}
+\begin{itemize}
+    \item Cache side-channels work by extracting information about cache
+        accesses of victim process
+    \item Any other process or hardware block which accesses the cache will
+        increase noise in the side-channel
+    \item We propose to disable the prefetcher by not allowing it to learn the stride patterns
+    \item This can be done by running a third process in parallel which makes
+        random loads at PC which alias with victim process' load PCs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Disabling Prefetcher to avoid Cache Pollution}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/prefetch_attack}
+    \caption{Prevent prefetcher from issuing memory accesses}
+    \label{fig:prefetch_attack}
 \end{figure}
-Decoy instructions pollute the cache by running decoy loads and
-disrupt attackers attempting side channel attacks on the cache.
+\end{frame}
+
+\subsection{Full Attacker}
+
+\begin{frame}
+\frametitle{Prefetcher attack implementation}
+\begin{itemize}
+    \item Place load instructions at multiple PC address to fill up the prefetcher table
+    \item Randomize stride for every load address
+    \item Restrict load address to single cache line by keeping stride less than 64 bytes
+    \item Ensure cache miss every time by flushing before load using \texttt{clflush}
+    \item Use \texttt{nop} instructions to align loads to desired PC address
+    \vspace{2em}
+    \item Drawback: targets whole prefetcher and not few entries relevant to victim.
+        Makes the attack slower and allows prefetcher to train on victim's accesses.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Assembly for Full Attacker}
+\begin{lstlisting}[caption={Assembly showing load misses at different PCs},
+label={lst:full_attack}]
+00000000000006ca <attack>:
+ 6ce:   8b 58 36        mov    0x36(rax),ebx
+ 6d1:   90              nop
+ 6d2:   0f ae 78 36     clflush 0x36(rax)
+ 6d6:   8b 58 08        mov    0x8(rax),ebx
+ 6d9:   90              nop
+ 6da:   0f ae 78 08     clflush 0x8(rax)
+ 6de:   8b 58 3f        mov    0x3f(rax),ebx
+ 6e1:   90              nop
+ 6e2:   0f ae 78 3f     clflush 0x3f(rax)
+ 6e6:   8b 58 38        mov    0x38(rax),ebx
+ 6e9:   90              nop
+ 6ea:   0f ae 78 38     clflush 0x38(rax)
+ 6ee:   8b 58 20        mov    0x20(rax),ebx
+ 6f1:   90              nop
+\end{lstlisting}
+\end{frame}
+
+\subsection{Targeted Attacker}
+
+\begin{frame}
+\frametitle{Targeted Attacker}
+\begin{itemize}
+    \item Simulate victim process with random inputs and look at memory access patterns.
+    \item Identify load addresses of the victim which have high probability
+        of generating prefetches. These PCs will be target of the attack.
+    \item Load instructions in the attacker are placed at PCs which alias with the target
+        PCs of the victim. Remaining gaps are filled with \texttt{nop}.
+    \item This attacker runs faster and is able to prevent the victim from successfully
+        training the prefetcher.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Assembly for Targeted Attacker}
+\begin{lstlisting}[caption={Attacker targeting specific PC addresses},
+label={lst:targeted_attack}]
+00000000000006ca <attack>:
+ 6da:   8b 58 0f                mov    0xf(rax),ebx
+ 6dd:   0f ae 78 0f             clflush 0xf(rax)
+ 6e1:   90                      nop
+ 6e2:   90                      nop
+ 6e3:   90                      nop
+ 6e4:   8b 58 3c                mov    0x3c(rax),ebx
+ 6e7:   0f ae 78 3c             clflush 0x3c(rax)
+ 6eb:   90                      nop
+ 6ec:   90                      nop
+     <nop slide> ...
+ 6f7:   90                      nop
+ 6f8:   8b 58 2f                mov    0x2f(rax),ebx
+ 6fb:   0f ae 78 2f             clflush 0x2f(rax)
+ 6ff:   90                      nop
+\end{lstlisting}
+\end{frame}
+
+\subsection{Results}
+
+\begin{frame}
+\frametitle{Simulator Setup}
+
+\begin{tabular}{|l|r|}
+    \hline
+    Simulator  & gem5 X86\\
+    \hline
+    Cores#  & 2\\
+    \hline
+    L1 Icache & 32K 8-way\\
+    \hline
+    L1 Dcache & 32K 8-way\\
+    \hline
+    L2 cache & 256K 16-way shared between cores\\
+    \hline
+    L2 prefetcher  & Stride 64-entry 4-way, confthresh 4\\
+    \hline
+\end{tabular}
+\\
+
+Victim process runs on core1 and attacker runs on core2. Number of prefetches
+issued are measured for every 1,000,000 instructions of victim process.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Results for benchmarks}
+The drawback of the full attacker is apparent here where it is not able to fully reduce
+the number of prefetches to 0.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/hwpf_num}
+    \caption{Number of prefetches issued on different benchmarks}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results for AES victim}
+The targeted attacker is able to successfully reduce the prefetches to nearly 0.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/pf_issued.png}
+    \caption{Number of prefetches issued under three execution conditions: no attacker, full attacker, targeted attacker}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results for AES victim}
+This figure explains how the attacker is able to reduce the number of prefetches by decreasing
+confidence of the prefetcher. It does not indicate how the targeted attacker is able to perform
+better than full attacker.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figures/avg_conf.png}
+    \caption{Average confidence of prefetcher entries}
+    \label{fig:prefetch_attack}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Results for AES victim}
+This figure shows the major reduction in prefetcher table hits for targeted attacker which
+explains why it can perform better.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/pf_hits.png}
+    \caption{Hits/Misses comparision for prefetcher table under three execution conditions}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results for GHB Prefetcher}
+The stride prefetcher was replaced with a GHB prefetcher implementation
+using Delta Correlating Prediction Tables (DCPT).
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/dcpt-hwpf.png}
+    \caption{Prefetches issued with DCPT Prefetcher}
+\end{figure}
 \end{frame}
 
 \section{ROB based Side Channel}
@@ -411,19 +601,28 @@ disrupt attackers attempting side channel attacks on the cache.
 \frametitle{Hypothetical ROB based Side Channel}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{rob_side_channel}
+\includegraphics[width=0.8\textwidth]{figures/rob_side_channel}
 \caption{Reorder buffer for SMT. When T1 is stalled T2 retires twice as many instructions.}
 \end{figure}
 \end{frame}
 
 \section{Conclusion}
 \begin{frame}
-    \frametitle{Conclusion and future work}
+\frametitle{Conclusion}
 \begin{itemize}
-\item Modern hardware features have introduced leakages in the processor which is a security concern.
-\item GPGPUs are being targeted as a new domain of security leaks.
-\item Hardware design needs to take into account these kind of security leaks.
-\item Explore other shared resources apart from caches as potential leakage sources.
+    \item Modern hardware features have introduced leakages in the processor which is a security concern.
+    \item GPGPUs are being targeted as a new domain of security leaks.
+    \item Hardware design needs to take into account these kind of security leaks.
+    \item Attacks to disable prefetcher are possible and may help enhance side-channels
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Future Work}
+\begin{itemize}
+        \item Test prefetch attacker with Disruptive Prefetcher implementation.
+        \item Create an attacker tailored for GHB instead of reusing stride attacker.
+        \item Create a viable attack which can test and exploit ROB side-channel
 \end{itemize}
 \end{frame}
 
