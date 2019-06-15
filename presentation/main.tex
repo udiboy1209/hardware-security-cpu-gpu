@@ -80,18 +80,20 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{listings}
 
+\graphicspath{{../figures/}}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[DDP Presentation]{Exploring data security on microprocessor hardware} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[DDP Presentation]{Exploring Data Security on Microprocessor Hardware} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Meet Udeshi\\
 14D070007\\
 Supervisor: Prof. Virendra Singh} % Your name
 \institute[CADSL] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-CADSL - IIT Bombay\\ % Your institution for the title page
+CADSL - IIT Bombay % Your institution for the title page
 }
 \date{\today} % Date, can be changed to a custom date
 
@@ -144,9 +146,8 @@ determine what part of code is running or what data is being processed.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/side_channel.png}
+    \includegraphics[width=0.7\textwidth]{side_channel}
     \caption[Data leakage sources]{A number of side channels which are capable of leaking data.}
-    \label{fig:dls}
 \end{figure}
 \end{frame}
 
@@ -204,15 +205,15 @@ y[0] = S[y[0]]^S[y[1]]^
 \begin{frame}
 \frametitle{Prime+Probe}
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{figures/prime_probe}
-\caption{Working of Flush+Reload attack}
+\includegraphics[width=0.9\textwidth]{prime_probe}
+\caption{Working of Prime+Probe attack}
 \end{figure}
 \end{frame}
 
 \begin{frame}
 \frametitle{Flush+Reload}
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{figures/flush_reload}
+\includegraphics[width=0.9\textwidth]{flush_reload}
 \caption{Working of Flush+Reload attack}
 \end{figure}
 \end{frame}
@@ -223,15 +224,17 @@ y[0] = S[y[0]]^S[y[1]]^
 \begin{columns}[c]
 \column{0.6\textwidth}
 \begin{figure}
-\includegraphics[width=\textwidth]{figures/flush_reload_crossvm}
+\includegraphics[width=\textwidth]{flush_reload_crossvm}
 \caption{Cross-VM Flush+Reload Attack via LLC}
 \end{figure}
 
 \column{0.39\textwidth}
-Virtual Machine environments are extensively used in cloud-computing
-platforms to enable multiple different users share processors. VMs share a common host OS
-which tries to optimise memory usage by performing page de-duplication. This allows VMs
-    to share memory pages and hence enables hardware based side channels\footnote[frame]{\cite{cross_vm}}.
+    \begin{itemize}
+        \item Virtual Machine environments are extensively used in cloud-computing
+        \item VMs share a common host OS which perform page de-duplication.
+        \item This allows VMs to share memory pages
+        \item Enables hardware based side channels\footnote[frame]{\cite{cross_vm}}.
+    \end{itemize}
 \end{columns}
 \end{frame}
 
@@ -244,7 +247,7 @@ look at side channels which can be exploited.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/gpgpu}
+    \includegraphics[width=0.8\textwidth]{gpgpu}
     \caption{Memory layout of GPGPUs}
 \end{figure}
 \end{frame}
@@ -258,7 +261,7 @@ look at side channels which can be exploited.
     each SM.
 \begin{figure}
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/covert_channel}
+    \includegraphics[width=0.95\textwidth]{covert_channel}
     \caption{Covert channel implementation on GPGPU}
 \end{figure}
 \end{frame}
@@ -303,7 +306,7 @@ long time = __rdtsc() - start;
 \frametitle{Result Plots}
 Setup: GEM5 x86 atomic CPU. L1 data cache 1KB, 2-way, 64B line size.
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{figures/reverse_eng_1kb}
+\includegraphics[width=0.9\textwidth]{reverse_eng_1kb}
 \caption{Latency vs Array Size plot}
 \end{figure}
 \end{frame}
@@ -312,7 +315,7 @@ Setup: GEM5 x86 atomic CPU. L1 data cache 1KB, 2-way, 64B line size.
 \frametitle{Result Plots}
 Setup: GEM5 x86 atomic CPU. L1 data cache 16KB, 4-way, 64B line size.
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{figures/reverse_eng_16kb}
+\includegraphics[width=0.9\textwidth]{reverse_eng_16kb}
 \caption{Latency vs Array Size plot}
 \end{figure}
 \end{frame}
@@ -321,7 +324,7 @@ Setup: GEM5 x86 atomic CPU. L1 data cache 16KB, 4-way, 64B line size.
 \frametitle{Result Plots}
 Setup: Intel Skylake x86\_64 i5-6500. L1 data cache 32KB, 8-way, 64B line size.
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{figures/reverse_eng_32kb}
+\includegraphics[width=0.9\textwidth]{reverse_eng_32kb}
 \caption{Latency vs Array Size plot}
 \end{figure}
 \end{frame}
@@ -347,7 +350,7 @@ Naive cache partitioning would equally split cache for all threads.
     Wang et al have proposed a dynamically partitioned cache in \footnote{\cite{wang}}.
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{figures/pl-cache}
+\includegraphics[width=\textwidth]{pl-cache}
 \caption{Partition-Locked cache - single cache line}
 \end{figure}
 PLCache requires addition of special locked-load/store instructions to the ISA.
@@ -363,7 +366,7 @@ Random-permutation cache is another cache design proposed by Wang et al. They
 have added a redirection step in the address decoder of caches which uses a random permutation table.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/rp-cache}
+\includegraphics[width=0.7\textwidth]{rp-cache}
 \caption{Random-permutation cache}
 \end{figure}
 RPcache is able to mark data using "Lock" bits by copying page protection bit.
@@ -379,7 +382,7 @@ A lot of modern processors use decoders to convert from ISA to an internal instr
 instructions to improve security.
 \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth]{figures/csd}
+\includegraphics[width=0.4\textwidth]{csd}
 \caption{Custom decoder for Context Sensitive Decoding}
 \end{figure}
 Decoy instructions pollute the cache by running decoy loads and
@@ -418,7 +421,7 @@ in the loaded memory address.
 \frametitle{Disabling Prefetcher to avoid Cache Pollution}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/prefetch_attack}
+    \includegraphics[width=0.5\textwidth]{prefetch_attack}
     \caption{Prevent prefetcher from issuing memory accesses}
     \label{fig:prefetch_attack}
 \end{figure}
@@ -501,14 +504,17 @@ label={lst:targeted_attack}]
 
 \subsection{Results}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Simulator Setup}
 
+Victim process runs on core1 and attacker runs on core2. Number of prefetches
+issued are measured for every 1,000,000 instructions of victim process.
+\vspace{0.1in}
 \begin{tabular}{|l|r|}
     \hline
     Simulator  & gem5 X86\\
     \hline
-    Cores#  & 2\\
+    Cores  & 2\\
     \hline
     L1 Icache & 32K 8-way\\
     \hline
@@ -519,10 +525,6 @@ label={lst:targeted_attack}]
     L2 prefetcher  & Stride 64-entry 4-way, confthresh 4\\
     \hline
 \end{tabular}
-\\
-
-Victim process runs on core1 and attacker runs on core2. Number of prefetches
-issued are measured for every 1,000,000 instructions of victim process.
 \end{frame}
 
 
@@ -533,7 +535,7 @@ the number of prefetches to 0.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/hwpf_num}
+    \includegraphics[width=0.75\textwidth]{hwpf_num}
     \caption{Number of prefetches issued on different benchmarks}
 \end{figure}
 \end{frame}
@@ -543,7 +545,7 @@ the number of prefetches to 0.
 The targeted attacker is able to successfully reduce the prefetches to nearly 0.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/pf_issued.png}
+    \includegraphics[width=0.85\textwidth]{pf_issued}
     \caption{Number of prefetches issued under three execution conditions: no attacker, full attacker, targeted attacker}
 \end{figure}
 \end{frame}
@@ -555,7 +557,7 @@ confidence of the prefetcher. It does not indicate how the targeted attacker is 
 better than full attacker.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\textwidth]{figures/avg_conf.png}
+    \includegraphics[width=0.85\textwidth]{avg_conf}
     \caption{Average confidence of prefetcher entries}
     \label{fig:prefetch_attack}
 \end{figure}
@@ -568,7 +570,7 @@ This figure shows the major reduction in prefetcher table hits for targeted atta
 explains why it can perform better.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/pf_hits.png}
+    \includegraphics[width=0.85\textwidth]{pf_hits}
     \caption{Hits/Misses comparision for prefetcher table under three execution conditions}
 \end{figure}
 \end{frame}
@@ -579,7 +581,7 @@ The stride prefetcher was replaced with a GHB prefetcher implementation
 using Delta Correlating Prediction Tables (DCPT).
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/dcpt-hwpf.png}
+    \includegraphics[width=0.85\textwidth]{dcpt-hwpf}
     \caption{Prefetches issued with DCPT Prefetcher}
 \end{figure}
 \end{frame}
@@ -601,7 +603,7 @@ using Delta Correlating Prediction Tables (DCPT).
 \frametitle{Hypothetical ROB based Side Channel}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{figures/rob_side_channel}
+\includegraphics[width=0.8\textwidth]{rob_side_channel}
 \caption{Reorder buffer for SMT. When T1 is stalled T2 retires twice as many instructions.}
 \end{figure}
 \end{frame}
