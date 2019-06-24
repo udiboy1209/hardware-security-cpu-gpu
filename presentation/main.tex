@@ -100,7 +100,7 @@ CADSL - IIT Bombay % Your institution for the title page
 
 \begin{document}
 \colorlet{LightBlue}{SkyBlue!50!}
-\lstset{backgroundcolor=\color{LightBlue}}
+\lstset{basicstyle=\tiny,backgroundcolor=\color{LightBlue}}
 
 \begin{frame}
 \titlepage % Print the title page as the first slide
@@ -525,11 +525,15 @@ label={lst:targeted_attack}]
 Victim process runs on core1 and attacker runs on core2. Number of prefetches
 issued are measured for every 1,000,000 instructions of victim process.\\
 \vspace{0.1in}
+\begin{table}[hbp]
+\centering
 \begin{tabular}{|l|r|}
     \hline
     Simulator  & gem5 X86\\
     \hline
-    Cores  & 2\\
+    Core Type  & O3 CPUs 8-wide fetch\\
+    \hline
+    Number of Cores & 2\\
     \hline
     L1 Icache & 32K 8-way\\
     \hline
@@ -537,22 +541,30 @@ issued are measured for every 1,000,000 instructions of victim process.\\
     \hline
     L2 cache & 256K 16-way shared between cores\\
     \hline
-    L2 prefetcher  & Stride 64-entry 4-way, confthresh 4\\
+    L2 prefetcher  & Stride 64-entry 4-way, confidence threshold 4\\
     \hline
 \end{tabular}
+\\
+\caption{Simulation setup}
+\label{tab:simulation_setup}
+\end{table}
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Results for benchmarks}
-The drawback of the full attacker is apparent here where it is not able to fully reduce
-the number of prefetches to 0.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.75\textwidth]{hwpf_num}
-    \caption{Number of prefetches issued on different benchmarks}
-\end{figure}
+\begin{columns}[t]
+    \column{0.74\textwidth}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.8\textwidth]{hwpf_num}
+            \caption{Number of prefetches issued on benchmarks}
+        \end{figure}
+    \column{0.25\textwidth}
+    \\
+    The drawback of the full attacker is apparent here where it is not able to fully reduce
+    the number of prefetches to 0.
+\end{columns}
 \end{frame}
 
 \begin{frame}
