@@ -20,11 +20,12 @@ mitigation,
 prefetchattack,
 robattack,
 %lit/literature,
-%dec,
+approval,
+dec,
 abs,
 future
 %pub
-%ack
+ack
 }
 
 %%% Some commonly used packages (make sure your LaTeX installation
@@ -34,6 +35,7 @@ future
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{graphicx}
+%\usepackage{geometry}
 
 \graphicspath{{../figures/}}
 
@@ -61,33 +63,34 @@ future
 \pagenumbering{roman}
 \setcounter{page}{1}
 
+\makeatletter
 %*******************************************************************
 %                         Title Page
 %*******************************************************************
-\title{Exploring Data Security on Microprocessor Hardware}
-\author{Meet Udeshi}
+\title{Exploring Data Security on Microprocessor Hardware}\let\Title\@title
+\author{Meet Udeshi}\let\Author\@author
 
 %% Print the date. Today's date comes by default, change it here to
 %% other date format, if required:
 
 %\date{\today}
-%\date{10 Mar 2016}
+\date{26 June 2019}\let\Date\@date
 
 
 %% The type of the report can be set here
 
-\reporttype{M.Tech Thesis}
-%\reporttype{A Thesis}
+%\reporttype{Masters Thesis}
+\reporttype{A Thesis}
 %\reporttype{A Dissertation}
 %\reporttype{A Project Report}
 
 %% Name of the degree
-\degree{Dual Degree Project}
+\degree{Dual Degree }\let\Degree\@degree
 %\degree{Master of Technology}
 
 
 %% Department/Centre Name
-\dept{Department of Electrical Engineering}
+\dept{Department of Electrical Engineering}\let\Dept\@dept
 
 %% Supervisor and cosupervisor/excosupervisor are not essential parts
 %% of a report title page, as it is your report!
@@ -98,7 +101,8 @@ future
 %\excosupervisor{External Supervisor}
 
 %% Roll number
-\rollnum{Roll No. 14D070007}
+\rollnum{Roll No. 14D070007}\let\Rollnum\@rollnum
+\makeatother
 
 \maketitle
 
@@ -129,12 +133,18 @@ future
 %*******************************************************************
 %\makeapproval{thesis}
 %\makeapproval{dissertation}
+%\include{approval}
+
+\thispagestyle{empty}
+\includegraphics[width=\textwidth]{approval.jpg}
+
 
 %*******************************************************************
 %                          Declaration
 %*******************************************************************
 %\include{dec}
-%\addintoc{Declaration}
+\includegraphics[width=\textwidth]{dec.jpg}
+\addintoc{Declaration}
 
 %******************************************************************
 %                          Abstract
@@ -247,7 +257,7 @@ Storage efficient hardware prefetching using delta-correlating prediction tables
 %******************************************************************
 %                        Acknowledgements
 %******************************************************************
-%\include{ack}
+\include{ack}
 
 %******************************************************************
 \end{document}
