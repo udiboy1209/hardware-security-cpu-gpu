@@ -38,18 +38,20 @@ in extracting data from modern cryptographic ciphers.
 Attackers try to generate collisions with a victim program sharing
 the same cache, and study their own cache timings to infer the
 victim's memory accesses.
-%Side channel attacks gather data on their own cache hits and cache misses,
-%and can infer a program's memory accesses based on this data.
+Side channel attacks gather data on their own cache hits and cache misses,
+and can infer a program's memory accesses based on this data.
 Some other hardware accessing the cache, e.g. prefetcher, degrades the
 quality of the side channel by introducing false positives in the attacker's
 data.
 This paper describes a method to disable the prefetcher by preventing
 it from generating memory accesses and interfering with side channels
 running in the cache.
-An attacker implementation is designed to work on a Stride Prefetcher.
-%This implementation is tested with OpenSSL AES program.
-Results show that it is able to significantly reduce the number of prefetches
-generated to almost 0.
+An attacker implementation is designed to work on a Stride Prefetcher,
+and is tested with OpenSSL AES victim program.
+A naive attacker which targets the whole prefetcher is able to reduce
+the number of prefetches by 32\%. By analysing the memory access pattern of the
+victim program, a targeted attacker is designed which is able to
+significantly reduce the number of prefetches generated to almost 0.
 
 %Such attacks assume that the victim program is the only other one making accesses
 %to the shared cache. Any accesses not originating from the victim program
@@ -85,12 +87,12 @@ hit or a cache miss as a sign of successful collision.
 The Prime+Probe attack fills the cache lines in a set with data other than
 that being accessed by the victim. Any access by the victim to that set will
 cause attacke's data to be evicted, which will show up during the Probe step
-as a cache miss \cite{osvik-cache-attacks}.
+as a cache miss \cite{osvik-cache-attacks} \cite{percival-rsa}.
  % Flush+Reload tries to get a cache hit on the data victim may have
  % accessed, like a common library.
 Similarly, the Flush+Reload attack looks for a cache hit to the same
 data as the victim. A cache hit in the Reload step is infered as successful
-collision \cite{percival-rsa}.
+collision \cite{yaron-falkner}.
 
  % Side channel attacks require least interference, else they will get
  % false positives because an attacker cannot determine where the cache
@@ -344,6 +346,8 @@ hits and misses to the prefetcher table by victim program.
 
 \begin{table}[hbp]
 \centering
+\caption{Simulation setup}
+\label{tab:simulation_setup}
 \begin{tabular}{|l|r|}
     \hline
     Simulator  & gem5 X86\\
@@ -361,9 +365,6 @@ hits and misses to the prefetcher table by victim program.
     L2 prefetcher  & Stride 64-entry 4-way, confidence threshold 4\\
     \hline
 \end{tabular}
-\\
-\caption{Simulation setup}
-\label{tab:simulation_setup}
 \end{table}
 
 \section{Results} \label{sec:results}
